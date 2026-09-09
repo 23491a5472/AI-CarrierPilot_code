@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'core/config/env_config.dart';
 import 'services/supabase_service.dart';
 import 'core/theme/app_theme.dart';
+import 'core/routes/app_router.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -25,44 +26,11 @@ class CareerPilotApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       title: 'CareerPilot AI',
       theme: AppTheme.lightTheme,
       debugShowCheckedModeBanner: false,
-      home: const PlaceholderScreen(),
-    );
-  }
-}
-
-class PlaceholderScreen extends StatelessWidget {
-  const PlaceholderScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Text(
-              'CareerPilot AI',
-              style: TextStyle(
-                fontSize: 32,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(height: 16),
-            const Text('Flutter + Supabase Client Initialized!'),
-            const SizedBox(height: 32),
-            ElevatedButton(
-              onPressed: () {
-                // Future Routing Navigation
-              },
-              child: const Text('Get Started'),
-            ),
-          ],
-        ),
-      ),
+      routerConfig: appRouter,
     );
   }
 }
