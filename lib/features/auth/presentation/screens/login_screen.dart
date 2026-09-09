@@ -2,17 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lucide_icons/lucide_icons.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
-import '../../../core/theme/app_colors.dart';
-import '../../../core/theme/app_gradients.dart';
-import '../../../core/theme/app_text_styles.dart';
-import '../../../core/theme/app_shadows.dart';
-import '../../../core/theme/app_spacing.dart';
-import '../../../shared/widgets/app_scaffold.dart';
-import '../../../shared/widgets/glass_card.dart';
-import '../../../shared/widgets/premium_text_field.dart';
-import '../../../shared/widgets/gradient_button.dart';
-import '../../../core/providers/auth_provider.dart';
+import '../../../../core/theme/app_colors.dart';
+import '../../../../core/theme/app_gradients.dart';
+import '../../../../core/theme/app_text_styles.dart';
+import '../../../../core/theme/app_shadows.dart';
+import '../../../../core/theme/app_spacing.dart';
+import '../../../../shared/widgets/app_scaffold.dart';
+import '../../../../shared/widgets/glass_card.dart';
+import '../../../../shared/widgets/premium_text_field.dart';
+import '../../../../shared/widgets/gradient_button.dart';
+import '../../../../core/providers/auth_provider.dart';
 
 class LoginScreen extends ConsumerStatefulWidget {
   const LoginScreen({super.key});
@@ -60,43 +59,43 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     return AppScaffold(
       body: Center(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg, vertical: AppSpacing.xxl),
+          padding: EdgeInsets.symmetric(horizontal: AppSpacing.lg, vertical: AppSpacing.xxl),
           child: GlassCard(
-            padding: const EdgeInsets.all(AppSpacing.xxl),
+            padding: EdgeInsets.all(AppSpacing.xxl),
             borderRadius: BorderRadius.circular(40),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-                  padding: const EdgeInsets.all(AppSpacing.md),
+                  padding: EdgeInsets.all(AppSpacing.md),
                   decoration: BoxDecoration(
                     gradient: AppGradients.amberGradient,
                     borderRadius: BorderRadius.circular(20),
                     boxShadow: AppShadows.iconFloating,
                   ),
-                  child: const Icon(LucideIcons.sparkles, color: AppColors.textInverse, size: 32),
+                  child: Icon(LucideIcons.sparkles, color: AppColors.textInverse, size: 32),
                 ),
-                const SizedBox(height: AppSpacing.xl),
+                SizedBox(height: AppSpacing.xl),
                 Text(isLogin ? 'Welcome back.' : 'Create account.', style: AppTextStyles.h1),
-                const SizedBox(height: AppSpacing.sm),
+                SizedBox(height: AppSpacing.sm),
                 Text(
                   isLogin ? 'Enter your details to access your dashboard.' : 'Sign up to start organizing your career journey.',
                   style: AppTextStyles.bodyMedium.copyWith(color: AppColors.textSecondary),
                 ),
-                const SizedBox(height: AppSpacing.huge),
+                SizedBox(height: AppSpacing.huge),
                 
                 if (!isLogin) ...[
                   PremiumTextField(controller: _nameController, label: 'Full Name', hintText: 'Enter your name', icon: LucideIcons.user),
-                  const SizedBox(height: AppSpacing.lg),
+                  SizedBox(height: AppSpacing.lg),
                 ],
                 
                 PremiumTextField(controller: _emailController, label: 'Email Address', hintText: 'Enter your email', icon: LucideIcons.mail, keyboardType: TextInputType.emailAddress),
-                const SizedBox(height: AppSpacing.lg),
+                SizedBox(height: AppSpacing.lg),
                 
                 PremiumTextField(controller: _passwordController, label: 'Password', hintText: 'Enter your password', icon: LucideIcons.lock, obscureText: true),
                 
                 if (isLogin) ...[
-                  const SizedBox(height: AppSpacing.md),
+                  SizedBox(height: AppSpacing.md),
                   Align(
                     alignment: Alignment.centerRight,
                     child: TextButton(
@@ -105,17 +104,17 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                     ),
                   ),
                 ] else ...[
-                  const SizedBox(height: AppSpacing.xl),
+                  SizedBox(height: AppSpacing.xl),
                 ],
                 
-                const SizedBox(height: AppSpacing.lg),
+                SizedBox(height: AppSpacing.lg),
                 GradientButton(
                   text: isLogin ? 'Sign In' : 'Create Account',
                   onPressed: _submit,
                   isLoading: isLoading,
                 ),
                 
-                const SizedBox(height: AppSpacing.xl),
+                SizedBox(height: AppSpacing.xl),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [

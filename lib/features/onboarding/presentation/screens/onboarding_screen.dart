@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lucide_icons/lucide_icons.dart';
-import '../../../core/theme/app_colors.dart';
-import '../../../core/theme/app_gradients.dart';
-import '../../../core/theme/app_text_styles.dart';
-import '../../../core/theme/app_shadows.dart';
-import '../../../core/theme/app_spacing.dart';
-import '../../../shared/widgets/app_scaffold.dart';
-import '../../../shared/widgets/glass_card.dart';
-import '../../../shared/widgets/gradient_button.dart';
+import '../../../../core/theme/app_colors.dart';
+import '../../../../core/theme/app_gradients.dart';
+import '../../../../core/theme/app_text_styles.dart';
+import '../../../../core/theme/app_shadows.dart';
+import '../../../../core/theme/app_spacing.dart';
+import '../../../../shared/widgets/app_scaffold.dart';
+import '../../../../shared/widgets/glass_card.dart';
+import '../../../../shared/widgets/gradient_button.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
@@ -67,7 +67,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   itemCount: _pages.length,
                   itemBuilder: (context, index) {
                     return Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: AppSpacing.xl),
+                      padding: EdgeInsets.symmetric(horizontal: AppSpacing.xl),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -78,7 +78,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                               width: 280, height: 320,
                               child: Center(
                                 child: Container(
-                                  padding: const EdgeInsets.all(AppSpacing.xl),
+                                  padding: EdgeInsets.all(AppSpacing.xl),
                                   decoration: BoxDecoration(
                                     gradient: _pages[index]['gradient'],
                                     shape: BoxShape.circle,
@@ -89,9 +89,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                               ).animate(onPlay: (c) => c.repeat(reverse: true)).moveY(begin: -5, end: 5, duration: 3.seconds),
                             ),
                           ).animate().scale(curve: Curves.easeOutBack, duration: 600.ms),
-                          const SizedBox(height: AppSpacing.huge),
+                          SizedBox(height: AppSpacing.huge),
                           Text(_pages[index]['title'], textAlign: TextAlign.center, style: AppTextStyles.h2).animate().slideY(begin: 0.1).fadeIn(),
-                          const SizedBox(height: AppSpacing.md),
+                          SizedBox(height: AppSpacing.md),
                           Text(_pages[index]['description'], textAlign: TextAlign.center, style: AppTextStyles.bodyLarge).animate().slideY(begin: 0.1, delay: 100.ms).fadeIn(),
                         ],
                       ),
@@ -101,7 +101,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               ),
               
               Padding(
-                padding: const EdgeInsets.all(AppSpacing.xl),
+                padding: EdgeInsets.all(AppSpacing.xl),
                 child: Column(
                   children: [
                     Row(
@@ -110,18 +110,18 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         _pages.length,
                         (index) => AnimatedContainer(
                           duration: const Duration(milliseconds: 300),
-                          margin: const EdgeInsets.symmetric(horizontal: AppSpacing.xs),
+                          margin: EdgeInsets.symmetric(horizontal: AppSpacing.xs),
                           height: 8,
                           width: _currentIndex == index ? 32 : 8,
                           decoration: BoxDecoration(
                             gradient: _currentIndex == index ? _pages[_currentIndex]['gradient'] : null,
-                            color: _currentIndex == index ? null : AppColors.textLight.withOpacity(0.3),
+                            color: _currentIndex == index ? null : AppColors.textLight.withValues(alpha: 0.3),
                             borderRadius: BorderRadius.circular(4),
                           ),
                         ),
                       ),
                     ),
-                    const SizedBox(height: AppSpacing.xxl),
+                    SizedBox(height: AppSpacing.xxl),
                     GradientButton(
                       text: _currentIndex == _pages.length - 1 ? 'Begin Journey' : 'Continue',
                       onPressed: () {
@@ -132,7 +132,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         }
                       },
                     ),
-                    const SizedBox(height: AppSpacing.md),
+                    SizedBox(height: AppSpacing.md),
                     TextButton(
                       onPressed: () => context.go('/login'),
                       child: Text('Skip for now', style: AppTextStyles.bodyMedium.copyWith(fontWeight: FontWeight.w600)),
