@@ -46,7 +46,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Account created. Checking session...')));
         }
       }
-      if (mounted) context.go('/');
+      if (mounted) context.go('/home');
     } catch (e) {
       if (mounted) ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.toString()), backgroundColor: AppColors.error));
     } finally {

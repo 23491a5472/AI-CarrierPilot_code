@@ -10,6 +10,8 @@ import '../../../../core/theme/app_spacing.dart';
 import '../../../../shared/widgets/app_scaffold.dart';
 import '../../../../shared/widgets/glass_card.dart';
 
+import '../../../../services/supabase_service.dart';
+
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
 
@@ -21,8 +23,14 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(const Duration(seconds: 3), () {
-      if (mounted) context.go('/onboarding');
+    Future.delayed(const Duration(seconds: 2), () {
+      if (!mounted) return;
+      final session = SupabaseService.client.auth.currentSession;
+      if (session != null) {
+        context.go('/home');
+      } else {
+        context.go('/onboarding');
+      }
     });
   }
 

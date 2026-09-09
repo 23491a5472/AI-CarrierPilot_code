@@ -1,9 +1,18 @@
 import 'package:go_router/go_router.dart';
+import '../../services/supabase_service.dart';
 import '../../features/splash/presentation/screens/splash_screen.dart';
 import '../../features/onboarding/presentation/screens/onboarding_screen.dart';
 import '../../features/auth/presentation/screens/login_screen.dart';
-// Future imports
-// import '../../features/dashboard/presentation/screens/main_scaffold.dart';
+import '../../features/dashboard/presentation/screens/home_screen.dart';
+import '../../features/analyze/presentation/screens/analyze_screen.dart';
+import '../../features/analyze/presentation/screens/ats_result_screen.dart';
+import '../../features/cover_letter/presentation/screens/cover_letter_screen.dart';
+import '../../features/interview_prep/presentation/screens/interview_prep_screen.dart';
+import '../../features/job_tracker/presentation/screens/job_tracker_screen.dart';
+import '../../features/profile/presentation/screens/profile_screen.dart';
+import '../../features/resume_library/presentation/screens/resume_library_screen.dart';
+import '../../features/skill_gap/presentation/screens/skill_gap_screen.dart';
+import '../../features/premium/presentation/screens/premium_screen.dart';
 
 final appRouter = GoRouter(
   initialLocation: '/',
@@ -20,6 +29,45 @@ final appRouter = GoRouter(
       path: '/login',
       builder: (context, state) => const LoginScreen(),
     ),
-    // We will add the main app scaffold here
+    GoRoute(
+      path: '/home',
+      builder: (context, state) => const HomeScreen(),
+    ),
+    GoRoute(
+      path: '/analyze',
+      builder: (context, state) => const AnalyzeScreen(),
+    ),
+    GoRoute(
+      path: '/ats-result',
+      builder: (context, state) => AtsResultScreen(analysisData: state.extra as Map<String, dynamic>?),
+    ),
+    GoRoute(
+      path: '/cover-letter',
+      builder: (context, state) => const CoverLetterScreen(),
+    ),
+    GoRoute(
+      path: '/interview-prep',
+      builder: (context, state) => const InterviewPrepScreen(),
+    ),
+    GoRoute(
+      path: '/job-tracker',
+      builder: (context, state) => const JobTrackerScreen(),
+    ),
+    GoRoute(
+      path: '/profile',
+      builder: (context, state) => const ProfileScreen(),
+    ),
+    GoRoute(
+      path: '/resume-library',
+      builder: (context, state) => const ResumeLibraryScreen(),
+    ),
+    GoRoute(
+      path: '/skill-gap',
+      builder: (context, state) => const SkillGapScreen(),
+    ),
+    GoRoute(
+      path: '/premium',
+      builder: (context, state) => const PremiumScreen(),
+    ),
   ],
 );
