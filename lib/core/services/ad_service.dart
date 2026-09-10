@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import '../config/env_config.dart';
 
 class AdService {
   AdService._();
@@ -29,33 +30,39 @@ class AdService {
     }
   }
 
-  // --- Ad Unit IDs (Google Test IDs) ---
+  // --- Ad Unit IDs (Production & Env Config) ---
   static String get bannerAdUnitId {
     if (kIsWeb) return '';
+    final envId = EnvConfig.admobBannerId;
+    if (envId.isNotEmpty) return envId;
     if (Platform.isAndroid) {
-      return 'ca-app-pub-3940256099942544/6300978111';
+      return 'ca-app-pub-3161775292516656/3202824895';
     } else if (Platform.isIOS) {
-      return 'ca-app-pub-3940256099942544/2934735716';
+      return 'ca-app-pub-3161775292516656/3202824895';
     }
     return '';
   }
 
   static String get interstitialAdUnitId {
     if (kIsWeb) return '';
+    final envId = EnvConfig.admobInterstitialId;
+    if (envId.isNotEmpty) return envId;
     if (Platform.isAndroid) {
-      return 'ca-app-pub-3940256099942544/1033173712';
+      return 'ca-app-pub-3161775292516656/8726614311';
     } else if (Platform.isIOS) {
-      return 'ca-app-pub-3940256099942544/4486956145';
+      return 'ca-app-pub-3161775292516656/8726614311';
     }
     return '';
   }
 
   static String get rewardedAdUnitId {
     if (kIsWeb) return '';
+    final envId = EnvConfig.admobRewardedId;
+    if (envId.isNotEmpty) return envId;
     if (Platform.isAndroid) {
-      return 'ca-app-pub-3940256099942544/5224354917';
+      return 'ca-app-pub-3161775292516656/4324334876';
     } else if (Platform.isIOS) {
-      return 'ca-app-pub-3940256099942544/1712480133';
+      return 'ca-app-pub-3161775292516656/4324334876';
     }
     return '';
   }
