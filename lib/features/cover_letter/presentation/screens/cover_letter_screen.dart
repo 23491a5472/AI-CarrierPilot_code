@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 import 'package:go_router/go_router.dart';
-import '../../../core/theme/app_colors.dart';
-import '../../../core/theme/app_text_styles.dart';
-import '../../../core/theme/app_spacing.dart';
-import '../../../shared/widgets/app_scaffold.dart';
-import '../../../shared/widgets/glass_card.dart';
-import '../../../shared/widgets/gradient_button.dart';
-import '../../../shared/widgets/empty_state_card.dart';
-import '../../cover_letter/data/cover_letter_repository.dart';
-import '../../../core/providers/limits_provider.dart';
+import 'package:careerpilot_ai/core/theme/app_colors.dart';
+import 'package:careerpilot_ai/core/theme/app_radius.dart';
+import 'package:careerpilot_ai/core/theme/app_text_styles.dart';
+import 'package:careerpilot_ai/core/theme/app_spacing.dart';
+import 'package:careerpilot_ai/shared/widgets/app_scaffold.dart';
+import 'package:careerpilot_ai/shared/widgets/glass_card.dart';
+import 'package:careerpilot_ai/shared/widgets/gradient_button.dart';
+import 'package:careerpilot_ai/shared/widgets/empty_state_card.dart';
+import 'package:careerpilot_ai/features/cover_letter/data/cover_letter_repository.dart';
+import 'package:careerpilot_ai/core/providers/limits_provider.dart';
 
 class CoverLetterScreen extends ConsumerStatefulWidget {
   const CoverLetterScreen({super.key});
@@ -30,8 +32,13 @@ class _CoverLetterScreenState extends ConsumerState<CoverLetterScreen> {
     final limitsAsync = ref.read(usageLimitsProvider);
 
     if (!isPremium && limitsAsync.value != null) {
-      final used = limitsAsync.value!['cover_letters_generated_today'] as int? ?? 0;
+      final used = limitsAsync.value!['cover_letters_used_today'] as int? ?? 0;
       if (used >= 1) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Daily free Cover Letter limit (1/1) reached. Upgrade to Pro for unlimited generation.'),
+          ),
+        );
         context.push('/premium');
         return;
       }
@@ -40,10 +47,23 @@ class _CoverLetterScreenState extends ConsumerState<CoverLetterScreen> {
     setState(() => isGenerating = true);
     try {
       final repo = ref.read(coverLetterRepositoryProvider);
-      final result = await repo.generateCoverLetter('mock_resume_text', 'mock_job_description', selectedTone);
+      final result = await repo.generateCoverLetter(
+        'Senior Software / Product Engineer resume content',
+        'Senior Lead Engineer requirements',
+        selectedTone,
+      );
       setState(() => generatedLetter = result['cover_letter_text']);
+
+      ref.invalidate(usageLimitsProvider);
     } catch (e) {
-      if (mounted) ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.toString()), backgroundColor: AppColors.error));
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(e.toString().replaceAll('Exception:', '').trim()),
+            backgroundColor: AppColors.error,
+          ),
+        );
+      }
     } finally {
       if (mounted) setState(() => isGenerating = false);
     }
@@ -53,97 +73,153 @@ class _CoverLetterScreenState extends ConsumerState<CoverLetterScreen> {
   Widget build(BuildContext context) {
     return AppScaffold(
       body: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg, vertical: AppSpacing.lg),
+        padding: const EdgeInsets.symmetric(
+          horizontal: AppSpacing.lg,
+          vertical: AppSpacing.lg,
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
               children: [
                 GestureDetector(
-                  onTap: () => context.pop(),
+                  onTap: () {
+                    if (context.canPop()) {
+                      context.pop();
+                    } else {
+                      context.go('/home');
+                    }
+                  },
                   child: Container(
-                    padding: const EdgeInsets.all(AppSpacing.sm),
-                    decoration: BoxDecoration(color: AppColors.textInverse, shape: BoxShape.circle),
-                    child: const Icon(LucideIcons.arrowLeft, color: AppColors.primary, size: 20),
+                    padding: const EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                      color: AppColors.surface,
+                      shape: BoxShape.circle,
+                      border: Border.all(color: AppColors.border, width: 1),
+                    ),
+                    child: Icon(
+                      LucideIcons.arrowLeft,
+                      color: AppColors.textPrimary,
+                      size: 20,
+                    ),
                   ),
                 ),
                 const SizedBox(width: AppSpacing.md),
-                const Text('Cover Letter Writer', style: AppTextStyles.h4),
+                Text('Cover Letter Writer', style: AppTextStyles.h3),
               ],
             ),
-            const SizedBox(height: AppSpacing.xxl),
-            
-            GlassCard(
-              padding: const EdgeInsets.all(AppSpacing.xl),
+            const SizedBox(height: AppSpacing.xl),
+
+            AppCard(
+              padding: const EdgeInsets.all(AppSpacing.cardPadding),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Professional Voice', style: AppTextStyles.h3),
-                  const SizedBox(height: AppSpacing.sm),
-                  Text('Our AI will draft a compelling narrative connecting your resume to the job description.', style: AppTextStyles.bodyMedium.copyWith(color: AppColors.textSecondary)),
-                  
-                  const SizedBox(height: AppSpacing.xl),
+                  Text('Narrative Tone', style: AppTextStyles.h3),
+                  const SizedBox(height: 4),
+                  Text(
+                    'AI will craft a tailored letter bridging your experience to the role.',
+                    style: AppTextStyles.bodyMedium.copyWith(
+                      color: AppColors.textMuted,
+                    ),
+                  ),
+                  const SizedBox(height: AppSpacing.lg),
                   Text('Select Tone', style: AppTextStyles.labelText),
-                  const SizedBox(height: AppSpacing.sm),
-                  
-                  // Tone Selectors
-                  Row(
+                  const SizedBox(height: 8),
+                  Wrap(
+                    spacing: 8,
+                    runSpacing: 8,
                     children: [
-                      GestureDetector(onTap: () => setState(() => selectedTone = 'Confident'), child: _buildToneChip('Confident', selectedTone == 'Confident')),
-                      const SizedBox(width: AppSpacing.sm),
-                      GestureDetector(onTap: () => setState(() => selectedTone = 'Humble'), child: _buildToneChip('Humble', selectedTone == 'Humble')),
-                      const SizedBox(width: AppSpacing.sm),
-                      GestureDetector(onTap: () => setState(() => selectedTone = 'Enthusiastic'), child: _buildToneChip('Enthusiastic', selectedTone == 'Enthusiastic')),
+                      _buildToneChip('Confident'),
+                      _buildToneChip('Humble'),
+                      _buildToneChip('Enthusiastic'),
+                      _buildToneChip('Executive'),
                     ],
-                  )
+                  ),
                 ],
               ),
-            ).animate().fadeIn().slideY(begin: 0.1),
-            
-            const SizedBox(height: AppSpacing.xxl),
-            
+            ).animate().fadeIn().slideY(begin: 0.08),
+
+            const SizedBox(height: AppSpacing.lg),
+
             GradientButton(
-              text: 'Generate Draft',
+              text: 'Generate Cover Letter',
               icon: LucideIcons.penTool,
               isLoading: isGenerating,
               onPressed: _generate,
-            ).animate().fadeIn(delay: 200.ms).scale(),
-            
-            const SizedBox(height: AppSpacing.xxl),
-            
+            ).animate().fadeIn(delay: 150.ms).scale(),
+
+            const SizedBox(height: AppSpacing.xl),
+
             // Output Area
             if (generatedLetter != null)
-              GlassCard(
-                child: SelectableText(
-                  generatedLetter!,
-                  style: AppTextStyles.bodyMedium,
+              AppCard(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text('Generated Draft', style: AppTextStyles.h4),
+                        IconButton(
+                          icon: const Icon(LucideIcons.copy, size: 18),
+                          onPressed: () {
+                            Clipboard.setData(ClipboardData(text: generatedLetter!));
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text('Copied cover letter to clipboard'),
+                              ),
+                            );
+                          },
+                        ),
+                      ],
+                    ),
+                    const Divider(height: 20),
+                    SelectableText(
+                      generatedLetter!,
+                      style: AppTextStyles.bodyMedium.copyWith(
+                        color: AppColors.textPrimary,
+                        height: 1.6,
+                      ),
+                    ),
+                  ],
                 ),
               ).animate().fadeIn()
             else
               const EmptyStateCard(
-                title: 'No Draft Yet',
-                description: 'Your draft will appear here after generation.',
+                title: 'No Letter Generated Yet',
+                description:
+                    'Select a tone above and tap Generate to create your custom cover letter draft.',
                 icon: LucideIcons.fileText,
-              ).animate().fadeIn(delay: 400.ms),
+              ).animate().fadeIn(delay: 300.ms),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildToneChip(String label, bool isSelected) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md, vertical: AppSpacing.sm),
-      decoration: BoxDecoration(
-        color: isSelected ? AppColors.secondary : Colors.transparent,
-        borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: isSelected ? AppColors.secondary : AppColors.textLight.withOpacity(0.3)),
-      ),
-      child: Text(
-        label,
-        style: AppTextStyles.bodySmall.copyWith(
-          color: isSelected ? AppColors.textInverse : AppColors.textPrimary,
-          fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
+  Widget _buildToneChip(String label) {
+    final isSelected = selectedTone == label;
+    return GestureDetector(
+      onTap: () => setState(() => selectedTone = label),
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+        decoration: BoxDecoration(
+          color: isSelected
+              ? AppColors.primary
+              : AppColors.surface,
+          borderRadius: BorderRadius.circular(AppRadius.chip),
+          border: Border.all(
+            color: isSelected ? AppColors.primary : AppColors.border,
+            width: 1,
+          ),
+        ),
+        child: Text(
+          label,
+          style: AppTextStyles.bodySmall.copyWith(
+            color: isSelected ? Colors.white : AppColors.textPrimary,
+            fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400,
+          ),
         ),
       ),
     );

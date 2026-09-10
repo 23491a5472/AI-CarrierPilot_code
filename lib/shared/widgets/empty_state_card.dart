@@ -4,6 +4,7 @@ import '../../core/theme/app_text_styles.dart';
 import '../../core/theme/app_spacing.dart';
 import 'glass_card.dart';
 
+/// Clean empty state card widget for Warm Career design system.
 class EmptyStateCard extends StatelessWidget {
   final String title;
   final String description;
@@ -20,26 +21,31 @@ class EmptyStateCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GlassCard(
+    return AppCard(
+      padding: const EdgeInsets.all(AppSpacing.cardPadding),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
             padding: const EdgeInsets.all(AppSpacing.lg),
             decoration: BoxDecoration(
-              color: AppColors.mutedCoral.withOpacity(0.15),
+              color: AppColors.softTerracotta.withValues(alpha: 0.12),
               shape: BoxShape.circle,
             ),
-            child: Icon(icon, size: 48, color: AppColors.secondary),
+            child: Icon(icon, size: 36, color: AppColors.primary),
           ),
-          const SizedBox(height: AppSpacing.lg),
+          const SizedBox(height: AppSpacing.md),
           Text(title, style: AppTextStyles.h4, textAlign: TextAlign.center),
-          const SizedBox(height: AppSpacing.sm),
-          Text(description, style: AppTextStyles.bodyMedium.copyWith(color: AppColors.textSecondary), textAlign: TextAlign.center),
+          const SizedBox(height: AppSpacing.xs),
+          Text(
+            description,
+            style: AppTextStyles.bodyMedium.copyWith(color: AppColors.textMuted),
+            textAlign: TextAlign.center,
+          ),
           if (action != null) ...[
             const SizedBox(height: AppSpacing.lg),
             action!,
-          ]
+          ],
         ],
       ),
     );

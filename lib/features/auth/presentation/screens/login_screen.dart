@@ -3,15 +3,16 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 import '../../../../core/theme/app_colors.dart';
-import '../../../../core/theme/app_gradients.dart';
-import '../../../../core/theme/app_text_styles.dart';
-import '../../../../core/theme/app_shadows.dart';
+import '../../../../core/theme/app_radius.dart';
 import '../../../../core/theme/app_spacing.dart';
+import '../../../../core/theme/app_text_styles.dart';
 import '../../../../shared/widgets/app_scaffold.dart';
 import '../../../../shared/widgets/glass_card.dart';
 import '../../../../shared/widgets/premium_text_field.dart';
 import '../../../../shared/widgets/gradient_button.dart';
 import '../../../../core/providers/auth_provider.dart';
+import '../../../../core/providers/profile_provider.dart';
+import '../../../../core/providers/limits_provider.dart';
 
 class LoginScreen extends ConsumerStatefulWidget {
   const LoginScreen({super.key});
@@ -28,27 +29,78 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   bool isLoading = false;
 
   Future<void> _submit() async {
+    final email = _emailController.text.trim();
+    final password = _passwordController.text.trim();
+    final name = _nameController.text.trim();
+
+    if (email.isEmpty || password.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Please fill in all required fields')),
+      );
+      return;
+    }
+
     setState(() => isLoading = true);
     final supabase = ref.read(supabaseClientProvider);
     try {
       if (isLogin) {
         await supabase.auth.signInWithPassword(
-          email: _emailController.text,
-          password: _passwordController.text,
+          email: email,
+          password: password,
         );
       } else {
-        await supabase.auth.signUp(
-          email: _emailController.text,
-          password: _passwordController.text,
-          data: {'full_name': _nameController.text},
+        final authRes = await supabase.auth.signUp(
+          email: email,
+          password: password,
+          data: {'full_name': name},
         );
+
+        final userId = authRes.user?.id;
+        if (userId != null) {
+          // Initialize DB Profile, Usage Limits, and Subscription Status
+          await supabase.from('profiles').upsert({
+            'id': userId,
+            'email': email,
+            'full_name': name.isNotEmpty ? name : email.split('@')[0],
+          });
+
+          await supabase.from('subscription_status').upsert({
+            'user_id': userId,
+            'plan_type': 'free',
+            'is_active': true,
+          });
+
+          await supabase.from('user_usage_limits').upsert({
+            'user_id': userId,
+            'ats_scans_used_today': 0,
+            'cover_letters_used_today': 0,
+            'resume_improvements_used_today': 0,
+            'last_reset_date': DateTime.now().toIso8601String().split('T')[0],
+          });
+        }
+
         if (mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Account created. Checking session...')));
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Account created successfully!')),
+          );
         }
       }
+
+      // Invalidate Riverpod providers to force dynamic re-fetch
+      ref.invalidate(profileProvider);
+      ref.invalidate(subscriptionProvider);
+      ref.invalidate(usageLimitsProvider);
+
       if (mounted) context.go('/home');
     } catch (e) {
-      if (mounted) ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.toString()), backgroundColor: AppColors.error));
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(e.toString().replaceAll('Exception:', '').trim()),
+            backgroundColor: AppColors.error,
+          ),
+        );
+      }
     } finally {
       if (mounted) setState(() => isLoading = false);
     }
@@ -59,72 +111,96 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     return AppScaffold(
       body: Center(
         child: SingleChildScrollView(
-          padding: EdgeInsets.symmetric(horizontal: AppSpacing.lg, vertical: AppSpacing.xxl),
-          child: GlassCard(
-            padding: EdgeInsets.all(AppSpacing.xxl),
-            borderRadius: BorderRadius.circular(40),
+          padding: const EdgeInsets.symmetric(
+            horizontal: AppSpacing.lg,
+            vertical: AppSpacing.xl,
+          ),
+          child: AppCard(
+            padding: const EdgeInsets.all(AppSpacing.cardPadding),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-                  padding: EdgeInsets.all(AppSpacing.md),
+                  padding: const EdgeInsets.all(14),
                   decoration: BoxDecoration(
-                    gradient: AppGradients.amberGradient,
-                    borderRadius: BorderRadius.circular(20),
-                    boxShadow: AppShadows.iconFloating,
+                    color: AppColors.primary,
+                    borderRadius: BorderRadius.circular(AppRadius.md),
                   ),
-                  child: Icon(LucideIcons.sparkles, color: AppColors.textInverse, size: 32),
+                  child: const Icon(
+                    LucideIcons.compass,
+                    color: Colors.white,
+                    size: 28,
+                  ),
                 ),
-                SizedBox(height: AppSpacing.xl),
-                Text(isLogin ? 'Welcome back.' : 'Create account.', style: AppTextStyles.h1),
-                SizedBox(height: AppSpacing.sm),
+                const SizedBox(height: AppSpacing.lg),
                 Text(
-                  isLogin ? 'Enter your details to access your dashboard.' : 'Sign up to start organizing your career journey.',
-                  style: AppTextStyles.bodyMedium.copyWith(color: AppColors.textSecondary),
+                  isLogin ? 'Welcome back.' : 'Create account.',
+                  style: AppTextStyles.h1,
                 ),
-                SizedBox(height: AppSpacing.huge),
-                
-                if (!isLogin) ...[
-                  PremiumTextField(controller: _nameController, label: 'Full Name', hintText: 'Enter your name', icon: LucideIcons.user),
-                  SizedBox(height: AppSpacing.lg),
-                ],
-                
-                PremiumTextField(controller: _emailController, label: 'Email Address', hintText: 'Enter your email', icon: LucideIcons.mail, keyboardType: TextInputType.emailAddress),
-                SizedBox(height: AppSpacing.lg),
-                
-                PremiumTextField(controller: _passwordController, label: 'Password', hintText: 'Enter your password', icon: LucideIcons.lock, obscureText: true),
-                
-                if (isLogin) ...[
-                  SizedBox(height: AppSpacing.md),
-                  Align(
-                    alignment: Alignment.centerRight,
-                    child: TextButton(
-                      onPressed: () {},
-                      child: Text('Forgot Password?', style: TextStyle(color: AppColors.secondary, fontWeight: FontWeight.w600)),
-                    ),
+                const SizedBox(height: 4),
+                Text(
+                  isLogin
+                      ? 'Sign in to access your resume & application insights.'
+                      : 'Create your account to start managing your career journey.',
+                  style: AppTextStyles.bodyMedium.copyWith(
+                    color: AppColors.textSecondary,
                   ),
-                ] else ...[
-                  SizedBox(height: AppSpacing.xl),
+                ),
+                const SizedBox(height: AppSpacing.xl),
+                if (!isLogin) ...[
+                  PremiumTextField(
+                    controller: _nameController,
+                    label: 'Full Name',
+                    hintText: 'Enter your full name',
+                    icon: LucideIcons.user,
+                  ),
+                  const SizedBox(height: AppSpacing.md),
                 ],
-                
-                SizedBox(height: AppSpacing.lg),
+                PremiumTextField(
+                  controller: _emailController,
+                  label: 'Email Address',
+                  hintText: 'name@example.com',
+                  icon: LucideIcons.mail,
+                  keyboardType: TextInputType.emailAddress,
+                ),
+                const SizedBox(height: AppSpacing.md),
+                PremiumTextField(
+                  controller: _passwordController,
+                  label: 'Password',
+                  hintText: 'Enter your password',
+                  icon: LucideIcons.lock,
+                  obscureText: true,
+                ),
+                const SizedBox(height: AppSpacing.xl),
                 GradientButton(
                   text: isLogin ? 'Sign In' : 'Create Account',
                   onPressed: _submit,
                   isLoading: isLoading,
                 ),
-                
-                SizedBox(height: AppSpacing.xl),
+                const SizedBox(height: AppSpacing.lg),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(isLogin ? "Don't have an account? " : "Already have an account? ", style: AppTextStyles.bodySmall),
+                    Text(
+                      isLogin
+                          ? "Don't have an account? "
+                          : "Already have an account? ",
+                      style: AppTextStyles.bodySmall.copyWith(
+                        color: AppColors.textMuted,
+                      ),
+                    ),
                     GestureDetector(
                       onTap: () => setState(() => isLogin = !isLogin),
-                      child: Text(isLogin ? 'Sign Up' : 'Sign In', style: TextStyle(color: AppColors.primary, fontWeight: FontWeight.w800)),
+                      child: Text(
+                        isLogin ? 'Sign Up' : 'Sign In',
+                        style: AppTextStyles.bodySmall.copyWith(
+                          color: AppColors.primary,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
                     ),
                   ],
-                )
+                ),
               ],
             ),
           ),

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import '../../core/theme/app_colors.dart';
-import '../../core/theme/app_text_styles.dart';
+import '../../core/theme/app_radius.dart';
 import '../../core/theme/app_spacing.dart';
-import 'glass_card.dart';
+import '../../core/theme/app_text_styles.dart';
 
+/// Clean usage limit badge for Warm Career design system.
 class UsageLimitBadge extends StatelessWidget {
   final int used;
   final int limit;
@@ -18,19 +19,44 @@ class UsageLimitBadge extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GlassCard(
-      padding: const EdgeInsets.symmetric(vertical: 12, horizontal: AppSpacing.md),
-      borderRadius: BorderRadius.circular(30),
+    final isLimitReached = used >= limit;
+
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+      decoration: BoxDecoration(
+        color: AppColors.surface,
+        borderRadius: BorderRadius.circular(AppRadius.pill),
+        border: Border.all(color: AppColors.border, width: 1),
+      ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Container(width: 8, height: 8, decoration: BoxDecoration(color: AppColors.accent, shape: BoxShape.circle)),
-          const SizedBox(width: AppSpacing.sm),
-          Text('$used of $limit Scans Used', style: AppTextStyles.bodySmall.copyWith(color: AppColors.primary, fontWeight: FontWeight.w700)),
+          Container(
+            width: 8,
+            height: 8,
+            decoration: BoxDecoration(
+              color: isLimitReached ? AppColors.warning : AppColors.softTerracotta,
+              shape: BoxShape.circle,
+            ),
+          ),
+          const SizedBox(width: 8),
+          Text(
+            '$used of $limit Scans Used',
+            style: AppTextStyles.bodySmall.copyWith(
+              color: AppColors.textPrimary,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
           const SizedBox(width: AppSpacing.md),
           GestureDetector(
             onTap: onUpgrade,
-            child: Text('UPGRADE', style: TextStyle(color: AppColors.secondary, fontWeight: FontWeight.w800, fontSize: 12, letterSpacing: 1)),
+            child: Text(
+              'UPGRADE',
+              style: AppTextStyles.overline.copyWith(
+                color: AppColors.primary,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
           ),
         ],
       ),

@@ -239,8 +239,11 @@ CREATE POLICY "Users can manage their own profiles" ON profiles FOR ALL USING (a
 CREATE POLICY "Users can manage their preferences" ON user_preferences FOR ALL USING (auth.uid() = user_id);
 CREATE POLICY "Users can view their subscription" ON subscription_status FOR SELECT USING (auth.uid() = user_id);
 CREATE POLICY "Users can manage their usage limits" ON user_usage_limits FOR ALL USING (auth.uid() = user_id);
-CREATE POLICY "Users can manage their own resumes" ON resumes FOR ALL USING (auth.uid() = user_id AND is_deleted = false);
-CREATE POLICY "Users can manage their own resume_versions" ON resume_versions FOR ALL USING (resume_id IN (SELECT id FROM resumes WHERE user_id = auth.uid()));
+CREATE POLICY "Users can insert their own resumes" ON resumes FOR INSERT WITH CHECK (auth.uid() = user_id);
+CREATE POLICY "Users can view their own resumes" ON resumes FOR SELECT USING (auth.uid() = user_id AND is_deleted = false);
+CREATE POLICY "Users can update their own resumes" ON resumes FOR UPDATE USING (auth.uid() = user_id);
+CREATE POLICY "Users can delete their own resumes" ON resumes FOR DELETE USING (auth.uid() = user_id);
+CREATE POLICY "Users can manage their own resume_versions" ON resume_versions FOR ALL USING (auth.uid() IS NOT NULL);
 CREATE POLICY "Users can manage their own job_descriptions" ON job_descriptions FOR ALL USING (auth.uid() = user_id);
 CREATE POLICY "Users can manage their own ats_analyses" ON ats_analyses FOR ALL USING (auth.uid() = user_id AND is_deleted = false);
 CREATE POLICY "Users can manage their own cover_letters" ON cover_letters FOR ALL USING (auth.uid() = user_id AND is_deleted = false);
@@ -264,7 +267,7 @@ ON storage.objects FOR INSERT
 WITH CHECK (
    bucket_id = 'resumes' 
    AND auth.uid()::text = (storage.foldername(name))[1] 
-   AND (LOWER(storage.extension(name)) = 'pdf') 
+   AND (LOWER(storage.extension(name)) IN ('pdf', 'docx', 'doc', 'txt')) 
    AND (storage.objects.metadata->>'size')::int <= 10485760 -- 10 MB limit
 );
 
