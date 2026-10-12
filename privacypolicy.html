@@ -1,42 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-    <meta name="description"
-          content="Privacy Policy for AI CareerPilot - Your Intelligent Career Copilot.">
+    <meta
+        name="description"
+        content="Privacy Policy for AI CareerPilot - Your Intelligent Career Copilot."
+    >
 
-    <meta name="theme-color" content="#F7F3EE">
+    <meta
+        name="theme-color"
+        content="#F7F3EE"
+    >
 
-    <title>Privacy Policy — AI CareerPilot</title>
+    <!-- App Icon / Favicon -->
+    <link
+        rel="icon"
+        type="image/png"
+        href="app_icon.png"
+    >
+
+    <link
+        rel="apple-touch-icon"
+        href="app_icon.png"
+    >
+
+    <title>
+        Privacy Policy — AI CareerPilot
+    </title>
+
 
     <style>
+
+        /* ========================================
+           GLOBAL
+        ======================================== */
 
         * {
             box-sizing: border-box;
         }
 
         :root {
+
             --ivory: #F7F3EE;
             --cream: #FCF9F5;
+
             --walnut: #332723;
             --walnut-soft: #594840;
+
             --terracotta: #C96B4A;
             --terracotta-dark: #B9573E;
+
             --amber: #D8A447;
+
             --sage: #87977F;
+
             --sand: #E8DED3;
+
             --white: #FFFFFF;
+
         }
+
 
         html {
             scroll-behavior: smooth;
         }
 
+
         body {
+
             margin: 0;
 
             background:
@@ -59,105 +98,193 @@
                 sans-serif;
 
             line-height: 1.75;
+
         }
+
 
         a {
+
             color: var(--terracotta-dark);
+
             font-weight: 600;
+
         }
+
 
         a:hover {
+
             color: var(--terracotta);
+
         }
+
 
         .container {
-            width: min(920px, calc(100% - 36px));
+
+            width:
+                min(920px, calc(100% - 36px));
+
             margin: 0 auto;
+
         }
 
-        /* =========================
+
+        /* ========================================
            HEADER
-        ========================= */
+        ======================================== */
 
         header {
-            padding: 28px 0;
-            border-bottom: 1px solid var(--sand);
+
+            padding: 24px 0;
+
+            border-bottom:
+                1px solid var(--sand);
+
+            background:
+                rgba(247, 243, 238, 0.82);
+
+            backdrop-filter:
+                blur(12px);
+
+            position: sticky;
+
+            top: 0;
+
+            z-index: 100;
+
         }
+
 
         .header-inner {
+
             display: flex;
+
             align-items: center;
+
             justify-content: space-between;
+
             gap: 20px;
+
         }
 
+
+        /* ========================================
+           BRAND
+        ======================================== */
+
         .brand {
+
             display: flex;
+
             align-items: center;
+
             gap: 11px;
 
             text-decoration: none;
+
             color: var(--walnut);
+
         }
+
 
         .brand-mark {
-            width: 40px;
-            height: 40px;
 
-            border-radius: 12px;
+            width: 44px;
 
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            height: 44px;
 
-            color: white;
+            border-radius: 13px;
 
-            font-size: 17px;
-            font-weight: 800;
+            overflow: hidden;
 
-            background:
-                linear-gradient(
-                    135deg,
-                    var(--terracotta),
-                    var(--amber)
-                );
+            flex-shrink: 0;
+
+            background: var(--cream);
 
             box-shadow:
-                0 7px 20px rgba(201, 107, 74, 0.20);
+                0 7px 20px
+                rgba(51, 39, 35, 0.16);
+
         }
+
+
+        .brand-mark img {
+
+            width: 100%;
+
+            height: 100%;
+
+            display: block;
+
+            object-fit: cover;
+
+        }
+
 
         .brand-name {
+
             font-size: 18px;
+
             font-weight: 750;
+
+            letter-spacing: -0.2px;
+
         }
+
+
+        /* ========================================
+           BACK LINK
+        ======================================== */
 
         .back-link {
+
             font-size: 14px;
+
             text-decoration: none;
+
             color: var(--walnut-soft);
+
+            transition: color 0.2s ease;
+
         }
 
-        /* =========================
+
+        .back-link:hover {
+
+            color: var(--terracotta);
+
+        }
+
+
+        /* ========================================
            PAGE HEADER
-        ========================= */
+        ======================================== */
 
         .page-header {
+
             padding: 65px 0 42px;
+
         }
 
+
         .eyebrow {
+
             color: var(--terracotta-dark);
 
             font-size: 12px;
+
             font-weight: 800;
 
             text-transform: uppercase;
+
             letter-spacing: 1.5px;
 
             margin-bottom: 12px;
+
         }
 
+
         h1 {
+
             margin: 0 0 14px;
 
             font-size:
@@ -166,17 +293,23 @@
             line-height: 1.05;
 
             letter-spacing: -2.5px;
+
         }
 
+
         .subtitle {
+
             max-width: 700px;
 
             color: var(--walnut-soft);
 
             font-size: 17px;
+
         }
 
+
         .effective-date {
+
             display: inline-block;
 
             margin-top: 18px;
@@ -186,33 +319,48 @@
             border-radius: 9px;
 
             background: var(--cream);
-            border: 1px solid var(--sand);
+
+            border:
+                1px solid var(--sand);
 
             color: var(--walnut-soft);
 
             font-size: 13px;
+
         }
 
-        /* =========================
+
+        /* ========================================
            CONTENT
-        ========================= */
+        ======================================== */
 
         main {
+
             padding-bottom: 80px;
+
         }
 
+
         .policy-section {
+
             padding: 30px 0;
 
             border-bottom:
-                1px solid rgba(232, 222, 211, 0.75);
+                1px solid
+                rgba(232, 222, 211, 0.75);
+
         }
+
 
         .policy-section:last-child {
+
             border-bottom: none;
+
         }
 
+
         h2 {
+
             margin: 0 0 16px;
 
             font-size: 25px;
@@ -220,38 +368,53 @@
             line-height: 1.25;
 
             letter-spacing: -0.5px;
+
         }
 
+
         h3 {
+
             margin: 25px 0 8px;
 
             font-size: 18px;
+
         }
 
+
         p {
+
             margin: 0 0 15px;
 
             font-size: 15.5px;
+
         }
 
+
         ul {
+
             margin:
                 12px 0 20px;
 
             padding-left: 25px;
+
         }
 
+
         li {
+
             margin-bottom: 8px;
 
             font-size: 15.5px;
+
         }
 
-        /* =========================
-           INFO BOX
-        ========================= */
+
+        /* ========================================
+           INFORMATION BOX
+        ======================================== */
 
         .info-box {
+
             margin: 25px 0;
 
             padding: 22px 24px;
@@ -265,17 +428,23 @@
                 4px solid var(--terracotta);
 
             border-radius: 12px;
+
         }
+
 
         .info-box p:last-child {
+
             margin-bottom: 0;
+
         }
 
-        /* =========================
+
+        /* ========================================
            CONTACT CARD
-        ========================= */
+        ======================================== */
 
         .contact-card {
+
             margin-top: 20px;
 
             padding: 26px;
@@ -287,28 +456,42 @@
             color: white;
 
             box-shadow:
-                0 18px 40px rgba(51, 39, 35, 0.13);
+                0 18px 40px
+                rgba(51, 39, 35, 0.13);
+
         }
 
+
         .contact-card h3 {
+
             margin-top: 0;
 
             font-size: 20px;
+
         }
+
 
         .contact-card p {
-            color: rgba(255,255,255,0.76);
+
+            color:
+                rgba(255, 255, 255, 0.76);
+
         }
+
 
         .contact-card a {
+
             color: #F0C56A;
+
         }
 
-        /* =========================
+
+        /* ========================================
            FOOTER
-        ========================= */
+        ======================================== */
 
         footer {
+
             padding: 30px 0;
 
             border-top:
@@ -317,80 +500,138 @@
             color: var(--walnut-soft);
 
             font-size: 13px;
+
         }
 
+
         .footer-inner {
+
             display: flex;
 
             justify-content: space-between;
+
             align-items: center;
 
             gap: 20px;
+
         }
+
 
         .footer-links {
+
             display: flex;
+
             gap: 20px;
+
         }
+
 
         .footer-links a {
+
             color: var(--walnut-soft);
+
             text-decoration: none;
+
             font-weight: 500;
+
         }
+
 
         .footer-links a:hover {
+
             color: var(--terracotta);
+
         }
 
-        /* =========================
+
+        /* ========================================
            MOBILE
-        ========================= */
+        ======================================== */
 
         @media (max-width: 650px) {
 
             .container {
+
                 width:
                     min(100% - 28px, 920px);
+
             }
+
 
             .header-inner {
-                align-items: flex-start;
+
+                align-items: center;
+
             }
+
+
+            .brand-name {
+
+                font-size: 16px;
+
+            }
+
+
+            .brand-mark {
+
+                width: 40px;
+
+                height: 40px;
+
+                border-radius: 11px;
+
+            }
+
 
             .back-link {
+
                 font-size: 13px;
+
             }
+
 
             .page-header {
+
                 padding-top: 45px;
+
             }
+
 
             h1 {
+
                 letter-spacing: -1.8px;
+
             }
+
 
             .policy-section {
+
                 padding: 25px 0;
+
             }
 
+
             .footer-inner {
+
                 flex-direction: column;
+
                 align-items: flex-start;
+
             }
 
         }
 
     </style>
+
 </head>
 
 
 <body>
 
 
-<!-- =========================
+<!-- ========================================
      HEADER
-========================= -->
+======================================== -->
 
 <header>
 
@@ -398,28 +639,44 @@
 
         <div class="header-inner">
 
+
+            <!-- AI CareerPilot Brand -->
+
             <a
                 href="index.html"
-                class="brand">
+                class="brand"
+            >
 
                 <div class="brand-mark">
-                    CP
+
+                    <img
+                        src="assets/app-icon.png"
+                        alt="AI CareerPilot app icon"
+                    >
+
                 </div>
 
+
                 <div class="brand-name">
+
                     AI CareerPilot
+
                 </div>
 
             </a>
 
 
+            <!-- Back to Website -->
+
             <a
                 href="index.html"
-                class="back-link">
+                class="back-link"
+            >
 
                 ← Back to website
 
             </a>
+
 
         </div>
 
@@ -428,21 +685,29 @@
 </header>
 
 
-<!-- =========================
+
+<!-- ========================================
      PAGE HEADER
-========================= -->
+======================================== -->
 
 <div class="container">
 
     <div class="page-header">
 
+
         <div class="eyebrow">
+
             Privacy & Security
+
         </div>
 
+
         <h1>
+
             Privacy Policy
+
         </h1>
+
 
         <p class="subtitle">
 
@@ -452,6 +717,7 @@
 
         </p>
 
+
         <div class="effective-date">
 
             Effective Date:
@@ -459,23 +725,25 @@
 
         </div>
 
+
     </div>
 
 </div>
 
 
-<!-- =========================
-     POLICY
-========================= -->
+
+<!-- ========================================
+     POLICY CONTENT
+======================================== -->
 
 <main>
 
 <div class="container">
 
 
-<!-- =========================
+<!-- ========================================
      1. INTRODUCTION
-========================= -->
+======================================== -->
 
 <section class="policy-section">
 
@@ -483,37 +751,44 @@
         1. Introduction
     </h2>
 
+
     <p>
 
-        AI CareerPilot ("AI CareerPilot", "we", "our", or "us")
-        is an AI-powered career assistance application designed
-        to help users analyze resumes, evaluate ATS compatibility,
-        match resumes with job descriptions, prepare for
-        interviews, and improve their career application process.
+        AI CareerPilot ("AI CareerPilot", "we", "our",
+        or "us") is an AI-powered career assistance
+        application designed to help users analyze
+        resumes, evaluate ATS compatibility, match
+        resumes with job descriptions, prepare for
+        interviews, and improve their career
+        application process.
 
     </p>
 
+
     <p>
 
-        This Privacy Policy describes how information is collected,
-        used, stored, processed, and protected when you use the
-        AI CareerPilot mobile application and related services.
+        This Privacy Policy describes how information
+        is collected, used, stored, processed, and
+        protected when you use the AI CareerPilot
+        mobile application and related services.
 
     </p>
 
+
     <p>
 
-        By using AI CareerPilot, you acknowledge that you have
-        read and understood this Privacy Policy.
+        By using AI CareerPilot, you acknowledge that
+        you have read and understood this Privacy Policy.
 
     </p>
 
 </section>
 
 
-<!-- =========================
+
+<!-- ========================================
      2. INFORMATION WE COLLECT
-========================= -->
+======================================== -->
 
 <section class="policy-section">
 
@@ -521,10 +796,12 @@
         2. Information We Collect
     </h2>
 
+
     <p>
 
-        Depending on the features you use, AI CareerPilot may
-        collect or process the following categories of information:
+        Depending on the features you use,
+        AI CareerPilot may collect or process
+        the following categories of information:
 
     </p>
 
@@ -532,6 +809,7 @@
     <h3>
         Account Information
     </h3>
+
 
     <ul>
 
@@ -553,6 +831,7 @@
     <h3>
         Career and Resume Information
     </h3>
+
 
     <ul>
 
@@ -577,8 +856,7 @@
         </li>
 
         <li>
-            Career preferences and information voluntarily
-            provided by you
+            Career preferences and information voluntarily provided by you
         </li>
 
     </ul>
@@ -588,20 +866,23 @@
         AI Feature Inputs
     </h3>
 
+
     <p>
 
-        When you use AI-powered features, information you enter
-        or upload may be processed to generate the requested
-        analysis, recommendations, feedback, or other results.
+        When you use AI-powered features, information
+        you enter or upload may be processed to generate
+        the requested analysis, recommendations, feedback,
+        or other results.
 
     </p>
 
 </section>
 
 
-<!-- =========================
+
+<!-- ========================================
      3. HOW WE USE INFORMATION
-========================= -->
+======================================== -->
 
 <section class="policy-section">
 
@@ -609,9 +890,11 @@
         3. How We Use Information
     </h2>
 
+
     <p>
         We may use collected information to:
     </p>
+
 
     <ul>
 
@@ -672,9 +955,10 @@
 </section>
 
 
-<!-- =========================
+
+<!-- ========================================
      4. AI PROCESSING
-========================= -->
+======================================== -->
 
 <section class="policy-section">
 
@@ -682,22 +966,27 @@
         4. AI Processing
     </h2>
 
-    <p>
-
-        AI CareerPilot uses artificial intelligence services to
-        provide features such as resume analysis, ATS evaluation,
-        job matching, career insights, and interview assistance.
-
-    </p>
 
     <p>
 
-        Information submitted to AI-powered features may be
-        transmitted through our backend infrastructure and to
-        third-party AI service providers when necessary to
-        provide the requested functionality.
+        AI CareerPilot uses artificial intelligence
+        services to provide features such as resume
+        analysis, ATS evaluation, job matching,
+        career insights, and interview assistance.
 
     </p>
+
+
+    <p>
+
+        Information submitted to AI-powered features
+        may be transmitted through our backend
+        infrastructure and to third-party AI service
+        providers when necessary to provide the
+        requested functionality.
+
+    </p>
+
 
     <div class="info-box">
 
@@ -705,27 +994,29 @@
 
             <strong>Important:</strong>
             AI-generated results are intended to provide
-            assistance and general career guidance. They do not
-            guarantee employment, interviews, job offers, or
-            specific hiring outcomes.
+            assistance and general career guidance.
+            They do not guarantee employment, interviews,
+            job offers, or specific hiring outcomes.
 
         </p>
 
     </div>
 
+
     <p>
 
-        AI CareerPilot does not make employment decisions on
-        behalf of employers.
+        AI CareerPilot does not make employment decisions
+        on behalf of employers.
 
     </p>
 
 </section>
 
 
-<!-- =========================
+
+<!-- ========================================
      5. RESUME DATA
-========================= -->
+======================================== -->
 
 <section class="policy-section">
 
@@ -733,37 +1024,41 @@
         5. Resume and Job Description Data
     </h2>
 
+
     <p>
 
         You may voluntarily submit resumes, job descriptions,
-        skills, employment history, education information, and
-        other career-related information.
+        skills, employment history, education information,
+        and other career-related information.
 
     </p>
 
+
     <p>
 
-        This information is processed to provide the features
-        requested by you, including resume analysis, ATS
-        matching, career insights, and other AI-powered
-        functionality.
+        This information is processed to provide the
+        features requested by you, including resume
+        analysis, ATS matching, career insights,
+        and other AI-powered functionality.
 
     </p>
 
+
     <p>
 
-        Please avoid submitting sensitive personal information
-        that is not necessary for the career-related feature
-        you are using.
+        Please avoid submitting sensitive personal
+        information that is not necessary for the
+        career-related feature you are using.
 
     </p>
 
 </section>
 
 
-<!-- =========================
+
+<!-- ========================================
      6. AUTHENTICATION
-========================= -->
+======================================== -->
 
 <section class="policy-section">
 
@@ -771,34 +1066,39 @@
         6. Authentication and Account Management
     </h2>
 
+
     <p>
 
-        AI CareerPilot may use third-party authentication and
-        backend infrastructure, including Supabase, to securely
-        manage user accounts and application data.
+        AI CareerPilot may use third-party authentication
+        and backend infrastructure, including Supabase,
+        to securely manage user accounts and application data.
 
     </p>
 
+
     <p>
 
-        Authentication information is used to identify users,
-        protect accounts, and provide access to features and
-        information associated with the user's account.
+        Authentication information is used to identify
+        users, protect accounts, and provide access to
+        features and information associated with the
+        user's account.
 
     </p>
 
 </section>
 
 
-<!-- =========================
+
+<!-- ========================================
      7. ADVERTISING
-========================= -->
+======================================== -->
 
 <section class="policy-section">
 
     <h2>
         7. Advertising
     </h2>
+
 
     <p>
 
@@ -808,23 +1108,27 @@
 
     </p>
 
+
     <p>
 
-        Advertising providers may collect or process information
-        such as advertising identifiers, device information,
-        approximate location, advertising interactions, and
-        information necessary to provide and measure advertising,
+        Advertising providers may collect or process
+        information such as advertising identifiers,
+        device information, approximate location,
+        advertising interactions, and information
+        necessary to provide and measure advertising,
         subject to applicable law and your privacy choices.
 
     </p>
 
+
     <p>
 
-        Advertising practices may vary depending on your device,
-        location, consent choices, and applicable privacy
-        requirements.
+        Advertising practices may vary depending on
+        your device, location, consent choices, and
+        applicable privacy requirements.
 
     </p>
+
 
     <p>
 
@@ -833,12 +1137,14 @@
 
     </p>
 
+
     <p>
 
         <a
             href="https://policies.google.com/privacy"
             target="_blank"
-            rel="noopener noreferrer">
+            rel="noopener noreferrer"
+        >
 
             Google Privacy & Terms
 
@@ -849,9 +1155,10 @@
 </section>
 
 
-<!-- =========================
+
+<!-- ========================================
      8. ANALYTICS
-========================= -->
+======================================== -->
 
 <section class="policy-section">
 
@@ -859,14 +1166,17 @@
         8. Analytics and Diagnostics
     </h2>
 
+
     <p>
 
-        If analytics or crash-reporting services are enabled,
-        we may use them to understand application performance,
-        diagnose technical problems, identify crashes, improve
-        usability, and understand how features are used.
+        If analytics or crash-reporting services are
+        enabled, we may use them to understand application
+        performance, diagnose technical problems, identify
+        crashes, improve usability, and understand how
+        features are used.
 
     </p>
+
 
     <p>
 
@@ -880,9 +1190,10 @@
 </section>
 
 
-<!-- =========================
-     9. THIRD PARTY SERVICES
-========================= -->
+
+<!-- ========================================
+     9. THIRD-PARTY SERVICES
+======================================== -->
 
 <section class="policy-section">
 
@@ -890,17 +1201,23 @@
         9. Third-Party Services
     </h2>
 
+
     <p>
 
-        AI CareerPilot may rely on third-party service providers
-        to provide, operate, secure, and improve the application.
+        AI CareerPilot may rely on third-party service
+        providers to provide, operate, secure, and
+        improve the application.
 
     </p>
 
+
     <p>
-        Depending on the features and configuration of the
-        application, these services may include:
+
+        Depending on the features and configuration
+        of the application, these services may include:
+
     </p>
+
 
     <ul>
 
@@ -930,20 +1247,22 @@
 
     </ul>
 
+
     <p>
 
-        Third-party providers may process information in
-        accordance with their own privacy policies, applicable
-        laws, and their agreements with us.
+        Third-party providers may process information
+        in accordance with their own privacy policies,
+        applicable laws, and their agreements with us.
 
     </p>
 
 </section>
 
 
-<!-- =========================
+
+<!-- ========================================
      10. DATA SHARING
-========================= -->
+======================================== -->
 
 <section class="policy-section">
 
@@ -951,18 +1270,21 @@
         10. How We Share Information
     </h2>
 
+
     <p>
 
         We do not sell your personal information.
 
     </p>
 
+
     <p>
 
-        We may share or disclose information when reasonably
-        necessary to:
+        We may share or disclose information when
+        reasonably necessary to:
 
     </p>
+
 
     <ul>
 
@@ -999,9 +1321,10 @@
 </section>
 
 
-<!-- =========================
+
+<!-- ========================================
      11. DATA SECURITY
-========================= -->
+======================================== -->
 
 <section class="policy-section">
 
@@ -1009,28 +1332,32 @@
         11. Data Security
     </h2>
 
+
     <p>
 
-        We use reasonable technical and organizational measures
-        designed to protect information against unauthorized
-        access, alteration, disclosure, or destruction.
+        We use reasonable technical and organizational
+        measures designed to protect information against
+        unauthorized access, alteration, disclosure,
+        or destruction.
 
     </p>
 
+
     <p>
 
-        However, no electronic transmission, internet service,
-        or storage system can be guaranteed to be completely
-        secure.
+        However, no electronic transmission, internet
+        service, or storage system can be guaranteed
+        to be completely secure.
 
     </p>
 
 </section>
 
 
-<!-- =========================
+
+<!-- ========================================
      12. DATA RETENTION
-========================= -->
+======================================== -->
 
 <section class="policy-section">
 
@@ -1038,29 +1365,33 @@
         12. Data Retention
     </h2>
 
+
     <p>
 
-        We retain information for as long as reasonably necessary
-        to provide our services, maintain user accounts,
-        provide requested features, comply with legal
-        obligations, resolve disputes, prevent fraud, and
-        enforce applicable agreements.
+        We retain information for as long as reasonably
+        necessary to provide our services, maintain user
+        accounts, provide requested features, comply with
+        legal obligations, resolve disputes, prevent fraud,
+        and enforce applicable agreements.
 
     </p>
 
+
     <p>
 
-        Retention periods may vary depending on the type of
-        information and the purpose for which it was collected.
+        Retention periods may vary depending on the type
+        of information and the purpose for which it was
+        collected.
 
     </p>
 
 </section>
 
 
-<!-- =========================
+
+<!-- ========================================
      13. DATA DELETION
-========================= -->
+======================================== -->
 
 <section class="policy-section">
 
@@ -1068,54 +1399,69 @@
         13. Data Deletion and Account Deletion
     </h2>
 
+
     <p>
 
-        You may request deletion of your AI CareerPilot account
-        and associated personal information by contacting us.
+        You may request deletion of your AI CareerPilot
+        account and associated personal information by
+        contacting us.
 
     </p>
+
 
     <div class="info-box">
 
         <p>
-            <strong>To request account or data deletion:</strong>
+
+            <strong>
+                To request account or data deletion:
+            </strong>
+
         </p>
+
 
         <p>
 
             Send an email to:
 
-            <a href="mailto:[YOUR-SUPPORT-EMAIL]">
+            <a
+                href="mailto:[YOUR-SUPPORT-EMAIL]"
+            >
+
                 [YOUR-SUPPORT-EMAIL]
+
             </a>
 
         </p>
 
+
         <p>
 
-            Please include the email address associated with
-            your AI CareerPilot account so that we can identify
-            the appropriate account.
+            Please include the email address associated
+            with your AI CareerPilot account so that we
+            can identify the appropriate account.
 
         </p>
 
     </div>
 
+
     <p>
 
-        We may retain certain information where retention is
-        required by law or reasonably necessary for security,
-        fraud prevention, dispute resolution, financial records,
-        or other legitimate purposes.
+        We may retain certain information where retention
+        is required by law or reasonably necessary for
+        security, fraud prevention, dispute resolution,
+        financial records, or other legitimate purposes.
 
     </p>
 
 </section>
 
 
-<!-- =========================
+
+<!-- ========================================
      14. CHILDREN
-========================= -->
+======================================== -->
 
 <section class="policy-section">
 
@@ -1123,28 +1469,32 @@
         14. Children's Privacy
     </h2>
 
+
     <p>
 
-        AI CareerPilot is intended for people seeking career,
-        employment, and professional development assistance.
+        AI CareerPilot is intended for people seeking
+        career, employment, and professional development
+        assistance.
 
     </p>
+
 
     <p>
 
         AI CareerPilot is not specifically directed toward
         children, and we do not knowingly collect personal
-        information from children where prohibited by applicable
-        law.
+        information from children where prohibited by
+        applicable law.
 
     </p>
 
 </section>
 
 
-<!-- =========================
+
+<!-- ========================================
      15. USER RIGHTS
-========================= -->
+======================================== -->
 
 <section class="policy-section">
 
@@ -1152,19 +1502,21 @@
         15. Your Rights and Choices
     </h2>
 
+
     <p>
 
-        Depending on your location and applicable law, you may
-        have rights relating to your personal information,
-        including:
+        Depending on your location and applicable law,
+        you may have rights relating to your personal
+        information, including:
 
     </p>
+
 
     <ul>
 
         <li>
-            Accessing personal information associated with
-            your account
+            Accessing personal information associated
+            with your account
         </li>
 
         <li>
@@ -1185,19 +1537,21 @@
 
     </ul>
 
+
     <p>
 
-        You may contact us using the information provided below
-        to exercise applicable rights.
+        You may contact us using the information provided
+        below to exercise applicable rights.
 
     </p>
 
 </section>
 
 
-<!-- =========================
+
+<!-- ========================================
      16. INTERNATIONAL PROCESSING
-========================= -->
+======================================== -->
 
 <section class="policy-section">
 
@@ -1205,29 +1559,33 @@
         16. International Data Processing
     </h2>
 
+
     <p>
 
-        Depending on the services and infrastructure used by
-        AI CareerPilot, your information may be processed or
-        stored in countries other than the country in which
-        you live.
+        Depending on the services and infrastructure used
+        by AI CareerPilot, your information may be processed
+        or stored in countries other than the country in
+        which you live.
 
     </p>
 
+
     <p>
 
-        Where applicable, we take reasonable steps to ensure
-        that personal information is handled in accordance
-        with applicable privacy and data-protection requirements.
+        Where applicable, we take reasonable steps to
+        ensure that personal information is handled in
+        accordance with applicable privacy and
+        data-protection requirements.
 
     </p>
 
 </section>
 
 
-<!-- =========================
+
+<!-- ========================================
      17. POLICY CHANGES
-========================= -->
+======================================== -->
 
 <section class="policy-section">
 
@@ -1235,13 +1593,15 @@
         17. Changes to This Privacy Policy
     </h2>
 
+
     <p>
 
-        We may update this Privacy Policy from time to time to
-        reflect changes to our services, technology, legal
-        requirements, or privacy practices.
+        We may update this Privacy Policy from time to time
+        to reflect changes to our services, technology,
+        legal requirements, or privacy practices.
 
     </p>
+
 
     <p>
 
@@ -1254,9 +1614,10 @@
 </section>
 
 
-<!-- =========================
+
+<!-- ========================================
      18. CONTACT
-========================= -->
+======================================== -->
 
 <section class="policy-section">
 
@@ -1264,11 +1625,12 @@
         18. Contact Us
     </h2>
 
+
     <p>
 
         If you have questions about this Privacy Policy,
-        your personal information, or a data deletion request,
-        please contact us.
+        your personal information, or a data deletion
+        request, please contact us.
 
     </p>
 
@@ -1279,16 +1641,22 @@
             AI CareerPilot
         </h3>
 
+
         <p>
             Your Intelligent Career Copilot
         </p>
+
 
         <p>
 
             Email:
 
-            <a href="mailto:chinnari.sasi1282@gmail.com">
+            <a
+                href="mailto:chinnari.sasi1282@gmail.com"
+            >
+
                 chinnari.sasi1282@gmail.com
+
             </a>
 
         </p>
@@ -1303,9 +1671,10 @@
 </main>
 
 
-<!-- =========================
+
+<!-- ========================================
      FOOTER
-========================= -->
+======================================== -->
 
 <footer>
 
@@ -1313,23 +1682,28 @@
 
         <div class="footer-inner">
 
+
             <div>
+
                 © 2026 AI CareerPilot.
                 All rights reserved.
+
             </div>
 
 
             <div class="footer-links">
 
-                <a href="https://github.com/23491a5472/AI-CarrierPilot_code">
+                <a href="https://23491a5472.github.io/AI-CarrierPilot_code/">
                     Website
                 </a>
 
-                <a href="https://github.com/23491a5472/AI-CarrierPilot_code/privacypolicy.html">
+
+                <a href="https://23491a5472.github.io/AI-CarrierPilot_code/privacypolicy.html">
                     Privacy Policy
                 </a>
 
             </div>
+
 
         </div>
 
@@ -1339,4 +1713,5 @@
 
 
 </body>
+
 </html>
